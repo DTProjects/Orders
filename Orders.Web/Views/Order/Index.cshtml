@@ -1,0 +1,26 @@
+﻿@using Orders.Web.Models
+@model IEnumerable<OrderModel>
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>Home</h2>
+
+<table>
+    <tr>
+        <th>Order Number</th>
+        <th>Customer Id</th>
+        <th>Order Quantity</th>
+        <th>Options</th>
+    </tr>
+    @foreach (var order in Model)
+    {
+        <tr>
+            <td>@order.OrderNumber</td>
+            <td>@order.CustomerId</td>
+            <td>@order.Quantity</td>
+            <td><a>EDIT</a> | <a>DELETE</a></td>
+        </tr>
+    }
+</table>

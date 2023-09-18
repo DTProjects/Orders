@@ -67,13 +67,13 @@
     <Build Include="dbo\Tables\Order.sql" />
     <Build Include="Security\OrdersApp.sql" />
   </ItemGroup>
-  <ItemGroup>
-    <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\130\SqlSchemas\master.dacpac">
-      <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\130\SqlSchemas\master.dacpac</HintPath>
-      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
-      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
-    </ArtifactReference>
-  </ItemGroup>
+	<ItemGroup>
+		<ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\140\SqlSchemas\master.dacpac">
+			<HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\140\SqlSchemas\master.dacpac</HintPath>
+			<SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+			<DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
+		</ArtifactReference>
+	</ItemGroup>
   <ItemGroup>
     <None Include="OrdersDbCompare.scmp" />
   </ItemGroup>
