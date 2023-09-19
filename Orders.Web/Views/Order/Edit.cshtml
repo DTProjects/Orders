@@ -1,0 +1,26 @@
+﻿@using Orders.Web.Models
+@model OrderModel
+
+@{
+    ViewBag.Title = "EditOrder";
+}
+
+<h2>EditOrder</h2>
+
+@using (Html.BeginForm("Update", "Order"))
+{
+    <div>
+        <label>Order Number </label>@Html.TextBoxFor(m => m.OrderNumber, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <label>Customer Name </label> @Html.TextBoxFor(m => m.CustomerId, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <label>Quantity </label> @Html.EditorFor(model => model.Quantity)
+    </div>
+
+    @Html.HiddenFor(model=>model.Id)
+    <div>
+		<button class="btn btn-default" href="Order/Index">Back</button> <input type="submit" value="Save" />
+    </div>
+}
