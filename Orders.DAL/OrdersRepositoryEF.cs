@@ -15,6 +15,34 @@ namespace Orders.DAL
 				return entities.Orders.ToList();
 			}
 		}
+
+		public Order GetOrder(int orderId)
+		{
+			using (OrdersEntities entities = new OrdersEntities())
+			{
+				return entities.Orders.Single(m => m.Id == orderId);
+			}
+		}
+
+		public void UpdateOrder(int orderId, decimal quantity)
+		{
+			using (OrdersEntities entities = new OrdersEntities())
+			{
+				Order order = entities.Orders.Find(orderId);
+				order.Quantity = quantity;
+				entities.SaveChanges();
+			}
+		}
+
+		public void DeleteOrder(int orderId)
+		{
+			using (OrdersEntities entities = new OrdersEntities())
+			{
+				Order target = entities.Orders.Find(orderId);
+				entities.Orders.Remove(target);
+				entities.SaveChanges();
+			}
+		}
 	}
 }
 
