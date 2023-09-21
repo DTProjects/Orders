@@ -1,43 +1,46 @@
 ﻿@using Orders.Web.Models
-@model IEnumerable<OrderModel>
+@model IEnumerable<OrderItemModel>
 
 @{
-    ViewBag.Title = "View";
+	ViewBag.Title = "View";
 }
 
 <script>
-    var orderId;
+	var orderId;
 
-    function SetDelId(targetId) {
-        $('#delModal').modal('show');
-        orderId = targetId;
-    };
+	function SetDelId(targetId) {
+		$('#delModal').modal('show');
+		orderId = targetId;
+	};
 
-    function confirmDel() {
-        var url = "/Order/Delete";
-        $.post(url, { OrderId: orderId }, RedirectOnSuccess);
-    };
+	function confirmDel() {
+		var url = "/Order/Delete";
+		$.post(url, { OrderId: orderId }, RedirectOnSuccess);
+	};
 
 </script>
 
 <h2>Order List</h2>
 
-<table>
-    <tr>
-        <th>Order Number</th>
-        <th>Customer Id</th>
-        <th>Order Quantity</th>
-        <th>Options</th>
-    </tr>
-    @foreach (var order in Model)
-    {
-        <tr>
-            <td>@order.OrderNumber</td>
-            <td>@order.CustomerId</td>
-            <td>@order.Quantity</td>
-            <td>@Html.ActionLink("EDIT", "Edit", "Order", new { @id = order.Id }, null) | <a class="delOrder" onclick="SetDelId(@order.Id)">DELETE</a></td>
-        </tr>
-    }
+<div class="text-right">@Html.ActionLink("Add New Order", "CreateOrder", "Order")</div>
+<table class="table table-striped">
+	<tr>
+		<th scope="col">Order Number</th>
+		<th scope="col">First Name</th>
+		<th scope="col">Last Name</th>
+		<th scope="col">Order Quantity</th>
+		<th scope="col">Options</th>
+	</tr>
+	@foreach (var order in Model)
+	{
+		<tr>
+			<td>@order.OrderNumber</td>
+			<td>@order.FirstName</td>
+			<td>@order.LastName</td>
+			<td>@order.Quantity</td>
+			<td>@Html.ActionLink("EDIT", "Edit", "Order", new { @id = order.Id }, null) | <a class="delOrder" onclick="SetDelId(@order.Id)">DELETE</a></td>
+		</tr>
+	}
 </table>
 
 <div class="modal" id="delModal" tabindex="-1" role="dialog">

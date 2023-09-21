@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="OrdersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="OrdersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="Id" />
@@ -15,6 +15,7 @@
           <Property Name="PhoneNumber" Type="varchar" MaxLength="10" />
           <Property Name="EmailAddress" Type="varchar" MaxLength="100" />
           <Property Name="AnnualIncome" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TempId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -37,6 +38,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Order_I" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CustomerId" Type="int" Mode="In" />
+          <Parameter Name="Quantity" Type="decimal" Mode="In" />
+        </Function>
         <EntityContainer Name="OrdersModelStoreContainer">
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
@@ -45,8 +50,7 @@
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OrdersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -60,6 +64,7 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="AnnualIncome" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TempId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -89,7 +94,17 @@
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
+          <FunctionImport Name="Order_I" EntitySet="Orders" ReturnType="Collection(OrdersModel.Order)">
+            <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+            <Parameter Name="Quantity" Mode="In" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="Order_I_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="OrderNumber" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="CustomerId" Nullable="false" />
+          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="9" Scale="2" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -99,6 +114,7 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="OrdersModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="TempId" ColumnName="TempId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -118,6 +134,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Order_I" FunctionName="OrdersModel.Store.Order_I" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

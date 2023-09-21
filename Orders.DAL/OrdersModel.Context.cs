@@ -12,6 +12,8 @@ namespace Orders.DAL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class OrdersEntities : DbContext
     {
@@ -27,5 +29,31 @@ namespace Orders.DAL
     
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+    
+        public virtual ObjectResult<Order> Order_I(Nullable<int> customerId, Nullable<decimal> quantity)
+        {
+            var customerIdParameter = customerId.HasValue ?
+                new ObjectParameter("CustomerId", customerId) :
+                new ObjectParameter("CustomerId", typeof(int));
+    
+            var quantityParameter = quantity.HasValue ?
+                new ObjectParameter("Quantity", quantity) :
+                new ObjectParameter("Quantity", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Order>("Order_I", customerIdParameter, quantityParameter);
+        }
+    
+        public virtual ObjectResult<Order> Order_I(Nullable<int> customerId, Nullable<decimal> quantity, MergeOption mergeOption)
+        {
+            var customerIdParameter = customerId.HasValue ?
+                new ObjectParameter("CustomerId", customerId) :
+                new ObjectParameter("CustomerId", typeof(int));
+    
+            var quantityParameter = quantity.HasValue ?
+                new ObjectParameter("Quantity", quantity) :
+                new ObjectParameter("Quantity", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Order>("Order_I", mergeOption, customerIdParameter, quantityParameter);
+        }
     }
 }

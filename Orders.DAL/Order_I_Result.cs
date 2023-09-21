@@ -10,16 +10,12 @@
 namespace Orders.DAL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class Order_I_Result
     {
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
-        public string EmailAddress { get; set; }
-        public Nullable<decimal> AnnualIncome { get; set; }
-        public int TempId { get; set; }
+        public string OrderNumber { get; set; }
+        public int CustomerId { get; set; }
+        public decimal Quantity { get; set; }
     }
 }
