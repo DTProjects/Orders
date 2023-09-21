@@ -55,9 +55,12 @@
     <Compile Include="Customer.cs">
       <DependentUpon>OrdersModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="IOrdersRepository.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>OrdersModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrderItem.cs" />
+    <Compile Include="OrdersEntitiesEx.cs" />
     <Compile Include="OrdersModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -73,15 +76,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OrdersModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="OrdersRepositoryDapper.cs" />
     <Compile Include="OrdersRepositoryEF.cs" />
+    <Compile Include="Order_I_Result.cs">
+      <DependentUpon>OrdersModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <EntityDeploy Include="OrdersModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OrdersModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="App.Config" />
     <None Include="OrdersModel.edmx.diagram">
       <DependentUpon>OrdersModel.edmx</DependentUpon>
     </None>
@@ -102,6 +109,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Dapper">
+      <Version>2.0.151</Version>
+    </PackageReference>
     <PackageReference Include="EntityFramework">
       <Version>6.4.4</Version>
     </PackageReference>

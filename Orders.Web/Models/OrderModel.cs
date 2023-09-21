@@ -10,10 +10,10 @@ namespace Orders.Web.Models
 		public int CustomerId { get; set; }
 		public decimal Quantity { get; set; }
 
+		public IEnumerable<CustomerModel> Customers {get; set;}
 		public OrderModel()
 		{
 		}
-
 		public OrderModel(Order order)
 		{
 			Id = order.Id;
