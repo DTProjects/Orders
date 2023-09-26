@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Orders.DAL
+﻿namespace Orders.DAL
 {
-    public interface IOrdersRepository
+	public interface IOrdersRepository
     {
         List<OrderItem> GetOrders();
 
