@@ -1,12 +1,10 @@
-﻿using Orders.DAL;
+﻿using Microsoft.AspNetCore.Mvc;
+using Orders.DAL;
 using Orders.Web.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
 
 namespace Orders.Web.Controllers
 {
-    public class OrderController : Controller
+	public class OrderController : Controller
     {
         private readonly IOrdersRepository _repository;
         public OrderController(IOrdersRepository repository)
@@ -17,7 +15,7 @@ namespace Orders.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-			IEnumerable<OrderItemModel> model = _repository.GetOrders().Select(t => new OrderItemModel(t));
+            IEnumerable<OrderItemModel> model = _repository.GetOrders().Select(t => new OrderItemModel(t));
 
             return View(model);
         }

@@ -1,5 +1,4 @@
 ﻿using Orders.DAL;
-using System.Collections.Generic;
 
 namespace Orders.Web.Models
 {
@@ -13,8 +12,11 @@ namespace Orders.Web.Models
 		public IEnumerable<CustomerModel> Customers {get; set;}
 		public OrderModel()
 		{
+			OrderNumber = "";
+			Customers = Enumerable.Empty<CustomerModel>();
 		}
 		public OrderModel(Order order)
+			: this()
 		{
 			Id = order.Id;
 			OrderNumber = order.OrderNumber;

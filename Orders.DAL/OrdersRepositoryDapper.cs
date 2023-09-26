@@ -1,8 +1,6 @@
 ﻿using Dapper;
-using System.Collections.Generic;
-using System.Configuration;
+using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
 
 namespace Orders.DAL
 {
@@ -10,9 +8,9 @@ namespace Orders.DAL
 	{
 		private readonly string _connectString;
 
-		public OrdersRepositoryDapper()
+		public OrdersRepositoryDapper(IConfiguration configuration)
 		{
-			_connectString = ConfigurationManager.ConnectionStrings["OrdersDb"].ConnectionString;
+			_connectString = configuration.GetConnectionString("OrdersDb") ?? "";
 		}
 
 		public List<OrderItem> GetOrders()

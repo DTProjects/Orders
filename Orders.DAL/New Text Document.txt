@@ -1,0 +1,1 @@
+dotnet-ef dbcontext scaffold "data source=zeus;initial catalog=Orders;user id=ordersadmin;password=Pass123!;MultipleActiveResultSets=True;Encrypt=False" Microsoft.EntityFrameworkCore.SqlServer --use-database-names --no-pluralize
