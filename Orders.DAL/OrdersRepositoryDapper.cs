@@ -17,7 +17,7 @@ namespace Orders.DAL
 		{
 			using (SqlConnection con = new SqlConnection(_connectString))
 			{				
-				return con.Query<OrderItem>("SELECT o.Id, o.OrderNumber,c.FirstName,c.LastName,o.quantity FROM [Order] o LEFT JOIN [Customer] c ON o.CustomerId = c.Id").ToList();
+				return con.Query<OrderItem>("SELECT o.Id, o.OrderNumber,c.FirstName,c.LastName,o.quantity FROM [Order] o LEFT JOIN [Customer] c ON o.CustomerId = c.Id ORDER BY o.Id").ToList();
 			}
 		}
 
