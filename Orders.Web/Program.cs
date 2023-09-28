@@ -36,6 +36,9 @@ namespace Orders.Web
 				name: "default",
 				pattern: "{controller=Order}/{action=Index}/{id?}");
 
+			DbManager dbm = new DbManager(builder.Configuration);
+			dbm.CheckDb();
+
 			app.Run();
 		}
 	}
