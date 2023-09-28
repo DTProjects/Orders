@@ -45,12 +45,6 @@ namespace Orders.Web.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Customers()
-        {
-            return View();
-        }
-
         [HttpPost]
         public ActionResult Add()
         {
