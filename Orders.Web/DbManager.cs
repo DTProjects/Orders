@@ -20,8 +20,6 @@ namespace Orders.Web
 
 		public void CheckDb()
 		{
-
-
 			using (SqlConnection cn = new SqlConnection(_masterDb))
 			{
 				cn.Open();
@@ -43,11 +41,13 @@ namespace Orders.Web
 			string root = Path.GetDirectoryName(Environment.CurrentDirectory);
 
 			string db_dir = Path.Join(root, "Database");
-			string[] flst = Directory.GetFiles(db_dir);
-			string zip = flst.Single(t => t.EndsWith($"{_dbName}.zip", StringComparison.OrdinalIgnoreCase));
+			string[] zip_dir = Directory.GetFiles(db_dir);
+			string zip = zip_dir.Single(t => t.EndsWith($"{_dbName}.zip", StringComparison.OrdinalIgnoreCase));
 
 			ZipFile.ExtractToDirectory(zip, db_dir, true);
-			
+
+			string[] flst = Directory.GetFiles(db_dir);
+
 			string mdf_path = flst.Single(t => t.EndsWith($"{_dbName}.mdf", StringComparison.OrdinalIgnoreCase));
 			string ldf_path = flst.Single(t => t.EndsWith($"{_dbName}_log.ldf", StringComparison.OrdinalIgnoreCase));
 
