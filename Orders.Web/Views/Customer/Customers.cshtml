@@ -1,0 +1,29 @@
+﻿@using Orders.Web.Models
+@model IEnumerable<CustomerModel>
+
+@{
+	ViewBag.Title = "Contact";
+}
+<h2>Customer List</h2>
+
+<table class="table table-striped table-hover">
+	<thead class="table-dark">
+		<tr>
+			<th scope="col">First Name</th>
+			<th scope="col">Last Name</th>
+			<th scope="col">Email Address</th>
+			<th scope="col">Annual Income</th>
+		</tr>
+	</thead>
+	<tbody class="table-group-divider">
+		@foreach (var order in Model)
+			{
+				<tr>
+					<td>@order.FirstName</td>
+					<td>@order.LastName</td>
+					<td>@order.EmailAddress</td>
+					<td>@order.AnnualIncome</td>
+				</tr>
+			}
+	</tbody>
+</table>
