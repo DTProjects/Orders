@@ -10,6 +10,10 @@ namespace Orders.Web.Models
 		public string LastName { get; set; }
 		public decimal Quantity { get; set; }
 
+		public IEnumerable<OrderItemModel> OrderItems { get; set; }
+
+		public string NewOrderNum { get; set; }
+
 		public OrderItemModel()
 		{
 		}
