@@ -1,5 +1,5 @@
 ﻿@using Orders.Web.Models
-@model IEnumerable<OrderItemModel>
+@model OrderItemModel
 
 @{
 	ViewBag.Title = "View";
@@ -17,10 +17,16 @@
 		var url = "/Order/Delete";
 		$.post(url, { OrderId: orderId }, RedirectOnSuccess);
 	};
-
 </script>
 
 <h2>Order List</h2>
+@if(Model.NewOrderNum != null)
+{
+	<div class="alert alert-secondary alert-dismissible fade show" role="alert">
+		Successfully added order number @Model.NewOrderNum
+		<button type="button" class="btn-close" data-bs-dismiss="alert" />
+	</div>
+}
 <div class="container d-grid gap-3">
 	<div class="py-2 row justify-content-start"><input type="button" class="btn btn-dark col-2" value="Add New Order" onclick="location.href='@Url.Action("CreateOrder", "Order")'" /></div>
 </div>
@@ -35,7 +41,7 @@
 		</tr>
 	</thead>
 	<tbody class="table-group-divider">
-	@foreach (var order in Model)
+	@foreach (var order in Model.OrderItems)
 	{
 		<tr>
 			<td>@order.OrderNumber</td>

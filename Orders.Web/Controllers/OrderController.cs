@@ -13,9 +13,15 @@ namespace Orders.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string? newOrderNum)
         {
-            IEnumerable<OrderItemModel> model = _repository.GetOrders().Select(t => new OrderItemModel(t));
+            OrderItemModel model = new OrderItemModel();
+            model.OrderItems = _repository.GetOrders().Select(t => new OrderItemModel(t));
+
+            if (newOrderNum != null)
+            {
+                model.NewOrderNum = newOrderNum;
+            }
 
             return View(model);
         }
@@ -57,10 +63,10 @@ namespace Orders.Web.Controllers
         [HttpPost]
         public ActionResult Save(OrderModel model)
         {
-            _repository.NewOrder(model.CustomerId, model.Quantity);
+            Order newInfo = _repository.NewOrder(model.CustomerId, model.Quantity);
 
-            return RedirectToAction("Index");
-        }
+            return RedirectToAction("Index", "Order", new {newOrderNum = newInfo.OrderNumber.ToString() });
+		}
 
         [HttpPost]
         public ActionResult Update(OrderModel model)
