@@ -27,7 +27,7 @@ namespace Orders.Web.Controllers
 
         [Microsoft.AspNetCore.Mvc.Route("[controller]/NewOrder")]
         [HttpPost]
-        public ActionResult NewOrder([FromForm] OrderModel model) 
+        public ActionResult NewOrder([FromForm] Order model) 
         {
             Order res = _repository.NewOrder(model);
             return Ok($"Order number {res.OrderNumber} successfully created");

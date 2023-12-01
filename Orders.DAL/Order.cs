@@ -4,7 +4,7 @@ public partial class Order
 {
     public int Id { get; set; }
 
-    public string OrderNumber { get; set; } = null!;
+    public string OrderNumber { get; set; } = "";
 
     public int CustomerId { get; set; }
 
