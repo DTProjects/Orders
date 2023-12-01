@@ -6,9 +6,9 @@
 
         Order GetOrder(int orderId);
 
-        Order NewOrder(int customerId, decimal quantity);
+        Order NewOrder(Order order);
 
-        void UpdateOrder(int orderId, decimal quantity);
+        void UpdateOrder(Order order);
 
         void DeleteOrder(int orderId);
 

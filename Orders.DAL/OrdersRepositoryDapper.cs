@@ -29,25 +29,19 @@ namespace Orders.DAL
 			}
 		}
 
-		public Order NewOrder(int customerId, decimal quantity)
+		public Order NewOrder(Order order)
 		{			
 			using (SqlConnection con = new SqlConnection(_connectString))
 			{
-				Order ord = con.QuerySingle<Order>("EXEC Order_I @CustomerId, @Quantity", new
-				{
-					CustomerId = customerId,
-					Quantity = quantity
-				});
-
-				return ord;
+				return con.QuerySingle<Order>("EXEC Order_I @CustomerId, @Quantity", order);				
 			}
 		}
-		public void UpdateOrder(int orderId, decimal quantity)
+		public void UpdateOrder(Order order)
 		{
-			string sql = @"UPDATE [Order] SET Quantity=@Quantity WHERE Id=@OrderId";
+			string sql = @"UPDATE [Order] SET Quantity=@Quantity WHERE Id=@Id";
 			using (SqlConnection con = new SqlConnection(_connectString))
 			{
-				con.Execute(sql, new { Quantity = quantity, OrderId = orderId });
+				con.Execute(sql, order);
 			}
 		}
 

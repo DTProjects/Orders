@@ -16,7 +16,7 @@ namespace Orders.Web.Controllers
             _repository = repository;
         }
 
-        [Microsoft.AspNetCore.Mvc.Route("[controller]/{id?}")]
+        [Microsoft.AspNetCore.Mvc.Route("[controller]/Find/{id?}")]
         [HttpGet]
         public ActionResult<string> GetOrder(int id)
         {
@@ -27,15 +27,23 @@ namespace Orders.Web.Controllers
 
         [Microsoft.AspNetCore.Mvc.Route("[controller]/NewOrder")]
         [HttpPost]
-        public ActionResult CreateOrder([FromBody] Order order) 
+        public ActionResult NewOrder([FromForm] OrderModel model) 
         {
-            Order res = _repository.NewOrder(order.CustomerId, order.Quantity);
-            return Ok($"Order id {res.OrderNumber} successfully created");
+            Order res = _repository.NewOrder(model);
+            return Ok($"Order number {res.OrderNumber} successfully created");
+        }
+
+        [Microsoft.AspNetCore.Mvc.Route("[controller]/{id?}")]
+        [HttpPut]
+        public ActionResult UpdateOrder([FromForm] OrderModel model, [FromRoute] int id)
+        {
+            _repository.UpdateOrder(model);
+            return Ok($"Order id {id} successfully updated");
         }
 
         [Microsoft.AspNetCore.Mvc.Route("[controller]/{id?}")]
         [HttpDelete]
-        public ActionResult DeleteOrder(int id) 
+        public ActionResult DeleteOrder(int id)
         {
             _repository.DeleteOrder(id);
 

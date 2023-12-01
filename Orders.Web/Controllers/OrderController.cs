@@ -63,7 +63,7 @@ namespace Orders.Web.Controllers
         [HttpPost]
         public ActionResult Save(OrderModel model)
         {
-            Order newInfo = _repository.NewOrder(model.CustomerId, model.Quantity);
+            Order newInfo = _repository.NewOrder(model);
 
             return RedirectToAction("Index", "Order", new {newOrderNum = newInfo.OrderNumber.ToString() });
 		}
@@ -71,7 +71,7 @@ namespace Orders.Web.Controllers
         [HttpPost]
         public ActionResult Update(OrderModel model)
         {
-            _repository.UpdateOrder(model.Id, model.Quantity);
+            _repository.UpdateOrder(model);
 
             return RedirectToAction("Index");
         }

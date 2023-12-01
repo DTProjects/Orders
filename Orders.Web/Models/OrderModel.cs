@@ -2,13 +2,8 @@
 
 namespace Orders.Web.Models
 {
-	public class OrderModel
+	public class OrderModel: Order
 	{
-		public int Id { get; set; }
-		public string OrderNumber { get; set; }
-		public int CustomerId { get; set; }
-		public decimal Quantity { get; set; }
-
 		public IEnumerable<CustomerModel> Customers {get; set;}
 		public OrderModel()
 		{

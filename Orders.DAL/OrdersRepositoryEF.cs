@@ -40,25 +40,25 @@ namespace Orders.DAL
 			}
 		}
 
-		public Order NewOrder(int customerId, decimal quantity)
+		public Order NewOrder(Order order)
 		{
 			using (OrdersContext entities = new OrdersContext(_connectionString))
 			{
-				return entities.InsertOrder(customerId, quantity);
+				return entities.InsertOrder(order.CustomerId, order.Quantity);
 			}
 		}
 
-		public void UpdateOrder(int orderId, decimal quantity)
+		public void UpdateOrder(Order values)
 		{
 			using (OrdersContext entities = new OrdersContext(_connectionString))
 			{
-				Order? order = entities.Order.Find(orderId);
+				Order? order = entities.Order.Find(values.Id);
 				if (order == null)
 				{
 					return;
 				}
 
-				order.Quantity = quantity;
+				order.Quantity = values.Quantity;
 				entities.SaveChanges();
 			}
 		}
