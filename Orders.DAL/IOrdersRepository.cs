@@ -14,5 +14,6 @@
 
 
         List<Customer> GetCustomers();
+        string GetCustomerName(int customerId);
     }
 }

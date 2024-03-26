@@ -8,8 +8,11 @@ namespace Orders.Web.Models
 		public string OrderNumber { get; set; }
 		public int CustomerId { get; set; }
 		public decimal Quantity { get; set; }
+		public bool IsEdit { get; set; }
 
 		public IEnumerable<CustomerModel> Customers {get; set;}
+		public string CustomerName { get; set; }
+
 		public OrderModel()
 		{
 			OrderNumber = "";

@@ -9,5 +9,4 @@ public partial class Order
     public int CustomerId { get; set; }
 
     public decimal Quantity { get; set; }
-
 }

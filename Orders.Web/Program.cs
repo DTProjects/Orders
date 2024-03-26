@@ -10,7 +10,7 @@ namespace Orders.Web
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
-			builder.Services.AddTransient<IOrdersRepository, OrdersRepositoryEF>();
+			builder.Services.AddTransient<IOrdersRepository, OrdersRepositoryDapper>();
 			builder.Services.AddControllers().AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNamingPolicy = null; });
 
 			var app = builder.Build();

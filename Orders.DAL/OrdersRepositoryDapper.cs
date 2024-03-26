@@ -67,5 +67,13 @@ namespace Orders.DAL
 				return con.Query<Customer>("SELECT * FROM [Customer]").ToList();
 			}
 		}
-	}
+
+        public string GetCustomerName(int customerId)
+        {
+            using (SqlConnection con = new SqlConnection(_connectString))
+            {
+                return con.QuerySingle<string>("SELECT CONCAT_WS(' ', FirstName, LastName) FROM [Customer] WHERE Id=@CustomerId", new {CustomerId=customerId });
+            }
+        }
+    }
 }

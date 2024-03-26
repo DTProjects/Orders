@@ -4,7 +4,7 @@ using Orders.Web.Models;
 
 namespace Orders.Web.Controllers
 {
-	public class OrderController : Controller
+    public class OrderController : Controller
     {
         private readonly IOrdersRepository _repository;
         public OrderController(IOrdersRepository repository)
@@ -27,53 +27,42 @@ namespace Orders.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
-        {
-            Order order = _repository.GetOrder(id);
-            OrderModel model = new OrderModel(order);
-            model.Customers = _repository.GetCustomers().Select(t => new CustomerModel(t));
-
-            return View(model);
-        }
-
-        [HttpGet]
         public ActionResult CreateOrder()
         {
             OrderModel model = new OrderModel();
             model.Customers = _repository.GetCustomers().Select(t => new CustomerModel(t));
+            model.IsEdit = false;
 
-            return View("Add", model);
+            return View("EditOrder", model);
         }
 
         [HttpGet]
-        public ActionResult About()
+        public ActionResult UpdateOrder(int id)
         {
-            return View();
+            Order order = _repository.GetOrder(id);
+            OrderModel model = new OrderModel(order);
+            model.CustomerName = _repository.GetCustomerName(model.CustomerId);
+            model.IsEdit = true;
+
+            return View("EditOrder", model);
+
         }
 
         [HttpPost]
-        public ActionResult Add()
+        public ActionResult SaveChanges(OrderModel model)
         {
-            OrderModel model = new OrderModel();
-            model.Customers = _repository.GetCustomers().Select(t => new CustomerModel(t));
+            if (model.IsEdit)
+            {
+                _repository.UpdateOrder(model.Id, model.Quantity);
 
-            return View("Add", model);
-        }
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                Order newInfo = _repository.NewOrder(model.CustomerId, model.Quantity);
 
-        [HttpPost]
-        public ActionResult Save(OrderModel model)
-        {
-            Order newInfo = _repository.NewOrder(model.CustomerId, model.Quantity);
-
-            return RedirectToAction("Index", "Order", new {newOrderNum = newInfo.OrderNumber.ToString() });
-		}
-
-        [HttpPost]
-        public ActionResult Update(OrderModel model)
-        {
-            _repository.UpdateOrder(model.Id, model.Quantity);
-
-            return RedirectToAction("Index");
+                return RedirectToAction("Index", "Order", new { newOrderNum = newInfo.OrderNumber.ToString() });
+            }
         }
 
         [HttpPost]
@@ -82,6 +71,12 @@ namespace Orders.Web.Controllers
             _repository.DeleteOrder(OrderId);
 
             return Json(new { RedirectURL = "/Order/Index" });
+        }
+
+        [HttpGet]
+        public ActionResult About()
+        {
+            return View();
         }
     }
 }

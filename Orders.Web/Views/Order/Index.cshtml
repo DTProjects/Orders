@@ -42,7 +42,7 @@
 			<td>@order.Quantity</td>
 			<td>
 				<div class="btn-group" role="group">
-					<button class="btn btn-dark btn-sm" onclick="location.href='@Url.Action("Edit", "Order", new { @id = order.Id })'">Edit</button><button class="btn btn-dark btn-sm" onclick="SetDelId(@order.Id)">Delete</button>
+						<button class="btn btn-dark btn-sm" onclick="location.href='@Url.Action("UpdateOrder", "Order", new { @id = order.Id })'">Edit</button><button class="btn btn-dark btn-sm" onclick="SetDelId(@order.Id)">Delete</button>
 				</div>
 			</td>
 		</tr>

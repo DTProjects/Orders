@@ -85,7 +85,16 @@ namespace Orders.DAL
 				return entities.Customer.ToList();
 			}
 		}
-	}
+
+        public string GetCustomerName(int customerId)
+        {
+            using (OrdersContext entities = new OrdersContext(_connectionString))
+            {
+                Customer cust = entities.Customer.Single(c => c.Id == customerId);
+                return (cust.FirstName + " " + cust.LastName);
+            }
+        }
+    }
 }
 
 
